@@ -3,15 +3,25 @@ This is a general purpose agent layer for LLMs, written in python.
 Prompts are tuned for Llama 3.1 family
 
 Current goals:
-[y]: Make a simple dialogue setup in python/n
+
+[y]: Make a simple dialogue setup in python
+
 [y]: Make LLMs work through their problems through multiple prompts
+
 [n]: Web search access w/list of trustworthy websites
+
 [n]: Short term memory at the start of each prompt
+
 [n]: Give access to create/write simple python scripts
+
 [n]: Give access to call simple python scripts
+
 [n]: Give access to debug simple python scripts
+
 [n]: Provide a dumping ground for old context and prompts for summarization
+
 [n]: Oh, and a nice ui. Maybe. I'm only so good at this.
+
 [n]: Maybe, just maybe, LLM backend integration too.
 
 And thats it! Once its up any new functions can be set to short term memory,
