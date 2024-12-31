@@ -8,9 +8,11 @@ Current goals:
 
 [y]: Make LLMs work through their problems through multiple prompts
 
+[y]: Function calling with llama 3.1 8b
+
 [n]: Web search access w/list of trustworthy websites
 
-[n]: Short term memory at the start of each prompt
+[y]: Short term memory at the start of each prompt
 
 [n]: Give access to create/write simple python scripts
 
