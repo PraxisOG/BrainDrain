@@ -49,58 +49,66 @@ def extract_string(text):
     else:
         return text
 
-#+++This needs to return an array of all of tool calling instances
-def extract_thing_in_exclamation_marks(text):
+#Returns an array of tool names and corresponding strings
+def extract_tools_called(text):
     """
-    Extract the text surrounded by '!!'.
+    Extract the tools surrounded by '!!' and their corresponding arguments.
 
     Args:
         text (str): The input text.
 
     Returns:
-        str: The extracted text.
+        list: A list of tuples containing the extracted tools and their arguments.
     """
-    pattern = r'!!(.+)!!'
-    match = re.search(pattern, text)
+    pattern = r'!!([^!]*)!!\s*"([^"]*)"'
+    matches = re.findall(pattern, text)
     
-    if match:
-        return match.group(1)
-    else:
-        return ""
+    return [(match[0].strip(), match[1].strip()) for match in matches]
+
+
+def solver(directive):
+    #
+
+    #while loop
+        #Send request
+        #Tool calling
+        #Bot def
+        #
+    
+    #return with message
+    print("returned")
+
+def bot(input):
+    response = send_request(input)
+    bot_response = response.get("choices")[0].get("message").get("content") if response.get("choices") else "Sorry, I couldn't get a response."
+    return bot_response
 
 def main():
     print("Welcome to the Chatbot! Type 'quit' to exit.")
 
     tool_list = {"updateMem"}
 
-    memory_title = "Tools: Call tools by putting the tool name between two exclamation marks. Ex: !!updateMem!!"
-    memory_format = "Current tools are: " + tool_list
+    memory_title = "\nTools: Call tools by putting the tool name between two exclamation marks. Ex: !!updateMem!!\n"
+    memory_format = "Current tools are: " + str(tool_list)
     old_memory = ""
     new_memory = "This is your memory"
+
+    newmemone = ""
 
     while True:
         user_input = input("You: ")
         if user_input.lower() == 'quit':
+            print("You have quit!")
             break
         
-        total_mem = memory_title + memory_format + "Old tasks: " + old_memory + "\n    Current memory: " + new_memory
-
-        response = send_request(total_mem + "User: " + user_input)
+        print("one" + user_input)
+        response = send_request(user_input)
         bot_response = response.get("choices")[0].get("message").get("content") if response.get("choices") else "Sorry, I couldn't get a response."
 
+        newmemone = newmemone + bot_response
+
         #Printed to user
-        print("Bot:" + total_mem + "\n")
-
-        #This is bad code, this needs to detect the tool name and call the appropriate script
-        if(extract_thing_in_exclamation_marks(bot_response) == "updateMem"):
-            old_memory = old_memory + ". " + new_memory
-            new_memory = extract_string(bot_response)
-            print("--updatemem trigger")
-
-        #Or we have another one just for appropriate scripts and leave some hard coded stuff in main
-        # :/
-
-        print(bot_response)
+        print("Bot: " + bot_response + "\n")
 
 if __name__ == "__main__":
     main()
